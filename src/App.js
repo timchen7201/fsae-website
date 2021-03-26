@@ -1,13 +1,12 @@
-import logo from './logo.svg';
 import "bootstrap/dist/css/bootstrap.min.css";
-import {Header} from "./Header/index"
-import {Home} from './Home/index'
-import {About} from './About/index'
-import {Footer} from './Footer/index'
-import {Registry} from './Registry/index'
-import {News} from './News/index'
-import {Contact} from './Contact/index'
-import {Rule} from './Info/rule'
+import {Header} from "./Component/Header/index"
+import {Home} from './Pages/Home/index'
+import {About} from './Pages/About/index'
+import {Footer} from './Component/Footer/index'
+import {Register} from './Pages/Register/index'
+import {News} from './Pages/News/index'
+import {Contact} from './Pages/Contact/index'
+import {Rule} from './Pages/Info/rule'
 import {
   BrowserRouter as Router,
   Switch,
@@ -35,7 +34,7 @@ function App() {
           <News/>
         </Route>
         <Route exact path="/register">
-          <Registry/>
+          <Register/>
         </Route>
         <Route exact path="/contact">
           <Contact/>

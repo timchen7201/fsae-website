@@ -1,6 +1,6 @@
 import {React} from 'react'
 
-const Registry=()=>{
+const Register=()=>{
     return(
         <div className="container">
         <dvi className="row mt-5">
@@ -14,4 +14,4 @@ const Registry=()=>{
     )
 }
 
-export{Registry}
+export{Register}
