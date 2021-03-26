@@ -41,6 +41,7 @@ const Header = () => {
                     onMouseEnter={showDropdown} 
                     onMouseLeave={hideDropdown}
                     >
+                    <NavDropdown.Item href="/info/rule">比賽規範</NavDropdown.Item>
                     <NavDropdown.Item href="#action/3.1">活動花絮</NavDropdown.Item>
                     <NavDropdown.Item href="#action/3.1">行事曆</NavDropdown.Item>
 

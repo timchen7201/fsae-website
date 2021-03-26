@@ -7,16 +7,16 @@ import {Footer} from './Footer/index'
 import {Registry} from './Registry/index'
 import {News} from './News/index'
 import {Contact} from './Contact/index'
+import {Rule} from './Info/rule'
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect,
 } from "react-router-dom";
 
 function App() {
   return (
-    <Router>
+    <Router path="/">
       <Header/>
 
       <Switch>
@@ -26,8 +26,10 @@ function App() {
         <Route exact path="/about">
           <About/>
         </Route>
-        <Route exact path="/info">
-          
+        <Route path="/info">
+          <Route exact path="/info/rule">
+            <Rule/>
+          </Route>
         </Route>
         <Route exact path="/news">
           <News/>

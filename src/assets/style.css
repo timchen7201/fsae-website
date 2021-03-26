@@ -1,7 +1,7 @@
 body {
   margin: auto;
   font-family: 'Helvetica','Arial','sans-serif';
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 400;
   line-height: 1.6;
   /* color: #58616b; */
@@ -18,13 +18,50 @@ h2{
   margin-inline-start: 0px;
   margin-inline-end: 0px;
   font-weight: bold;
+  font-size: 2.5rem;
 
+}
+h3{
+  color:#1C1464 ;
+  font-family: inherit;
+  margin-block-start: 0.67em;
+  margin-block-end: 0.67em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+  font-size: 2.0rem;
+}
+h4{
+  color:#1C1464 ;
+  font-family: inherit;
+  margin-block-start: 0.67em;
+  margin-block-end: 0.67em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+  font-size: 1.8rem;
 }
 img{
   width: 100%;
   height: 100%;
 }
+.container img{
+  width: 100%;
+  height: 100%;
+}
+.pic-title{
+  margin:auto;
+  text-align: center;
+  font-style: italic;
+  display: block;
+}
+p:first-letter {
+  word-spacing: 1em;
+}
 .pageheading{
+  text-align: center;
+}
+.text-center{
   text-align: center;
 }
 .navbar{
@@ -37,8 +74,9 @@ img{
   font-size: 1.3rem;
   margin-left: 20px;
 }
-.nav-link:hover{
-  color:#1C1464;
+.dropdown-item{
+  font-size: 1.3rem;
+  color: #fff;
 }
 .white-text{
   font-size: 1.3rem;
@@ -60,14 +98,26 @@ img{
   background-color: #8B9098 !important;
   border: 0;
 }
+
+#contact span{
+  display: block !important;
+}
 .footer{
   background-color: #8B9098;
   text-align: center;
   /* border: 1px solid; */
-  position: absolute;
+  /* position: absolute; */
   padding: 20px;
   bottom: 0%;
   height: 247px;
   width: 100%;
-  
+  margin-top: 70vh;
+}
+.footer img{
+  width: 50px;
+  height: 50px;
+}
+.footer span{
+  display: block;
+  color: #fff;
 }

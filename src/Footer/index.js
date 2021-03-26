@@ -1,14 +1,15 @@
 import {React} from 'react'
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faFacebook } from '@fortawesome/free-brands-svg-icons'
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+
 
 const Footer = () => {
     return (
         <div class="d-flex flex-column">
             <footer class="footer">
                 <div className="container">
-                <FontAwesomeIcon icon={faFacebook} />
+                <a href="https://www.facebook.com/nckuformularacing/" target="_blank">
+                    <img src="../assets/image/facebook-2.svg" />
+                </a>
+                <span>@Copyright</span>
                 </div>
 
             </footer>
