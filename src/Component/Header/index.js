@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 // import {DropdownMenu, DropdownList, DropdownItem} from
 // "../component/Dropdown";
 import{ Nav,Navbar,NavDropdown,Col} from 'react-bootstrap'
+import AnchorLink from "react-anchor-link-smooth-scroll";
 
 
 const Header = () => {
@@ -35,7 +36,10 @@ const Header = () => {
                         <NavDropdown.Divider/>
                         <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
                     </NavDropdown> */}
-                <Nav.Link href="/about" className="nav-link">About</Nav.Link>
+                <AnchorLink href="#about">
+                    <Nav.Link href="" className="nav-link">About</Nav.Link>
+                </AnchorLink>
+                
                 <NavDropdown title={<a><sapn className="white-text">Info</sapn></a>} id="collasible-nav-dropdown"
                     show={show}
                     onMouseEnter={showDropdown} 
@@ -57,7 +61,7 @@ const Header = () => {
         </Navbar>
         
         <div className="absolute-logo">
-            <img src="../assets/image/title_pic.png" ></img>
+            <img src="../assets/image/title_pic.jpg" ></img>
         </div>
        </>
        )
