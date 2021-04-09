@@ -7,9 +7,8 @@ const Contact=()=>{
             <h2 style={{'display':'block'}}>聯絡人</h2>
                
             </div>
-            <div className="row">
+            {/* <div className="row">
                 <Card style={{ width: '24rem' }}>
-                    {/* <Card.Img variant="top" src="../assets/image/Zhuang.jpg" /> */}
                     <Card.Body>
                     <Card.Img variant="top" src="../assets/image/Zhuang.jpg" className="mb-3" />
                         <Card.Title><h3>莊淯翔(成功大學)</h3></Card.Title>
@@ -21,7 +20,7 @@ const Contact=()=>{
                         </Card.Text>
                     </Card.Body>
                 </Card>
-                </div>
+            </div> */}
         </div>
     )
 }

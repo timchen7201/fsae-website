@@ -1,12 +1,14 @@
-import React, {useEffect, useState, useContext} from "react";
+import React, {useEffect, useState,useContext} from "react";
 // import {DropdownMenu, DropdownList, DropdownItem} from
 // "../component/Dropdown";
 import{ Nav,Navbar,NavDropdown,Col,Button} from 'react-bootstrap'
+import AnchorLink from "react-anchor-link-smooth-scroll";
 import { AuthContext } from "../../appContext";
 
 
-const Header = () => {
+const IndexHeader = () => {
     const { authState, authDispatch } = useContext(AuthContext);
+
     const [show, setShow] = useState(false);
     const showDropdown = (e)=>{
         setShow(!show);
@@ -16,7 +18,7 @@ const Header = () => {
     }
     return ( <> 
         <div style={{'height':'72px','background-color':'#fff'}}>
-        {
+         {
                authState.user?(
                <div className="float-right mt-3 mr-3 pr-3">
                    <span>{authState.user.name}</span>
@@ -40,6 +42,7 @@ const Header = () => {
                 </Button>
                </a>)
          }
+          
         </div>
         < Navbar collapseOnSelect expand = "lg" bg = "" variant = "dark" className="navbar"> 
             {/* <Navbar.Brand href="#home" className="ml-5">React-Bootstrap</Navbar.Brand>  */}
@@ -62,7 +65,9 @@ const Header = () => {
                         <NavDropdown.Divider/>
                         <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
                     </NavDropdown> */}
-                <Nav.Link href="/#about" className="nav-link">About</Nav.Link>
+                <AnchorLink href="#about">
+                    <Nav.Link href="" className="nav-link">About</Nav.Link>
+                </AnchorLink>
                 
                 <NavDropdown title={<a><sapn className="white-text">Info</sapn></a>} id="collasible-nav-dropdown"
                     show={show}
@@ -91,4 +96,4 @@ const Header = () => {
        )
 }
 
-export {Header}
+export {IndexHeader}

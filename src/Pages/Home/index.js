@@ -2,6 +2,10 @@ import {React} from 'react'
 import {About} from '../About'
 
 const Home=()=>{
+
+    // const secret= require('env')(firebase.config().env.test)
+    // const secret= firebase.config().env.test
+
     return(
         <div className="container mt-5">
         
