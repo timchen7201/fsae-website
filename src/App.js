@@ -1,7 +1,7 @@
 import React,{useReducer,useEffect,useState} from "react"
 import "bootstrap/dist/css/bootstrap.min.css";
 import {Header} from "./Component/Header/index"
-import {IndexHeader} from "./Component/Header/header"
+// import {IndexHeader} from "./Component/Header/header"
 import { AuthContext } from "./appContext";
 import request from "./utils/request";
 import storage from "./utils/storage";
@@ -14,6 +14,7 @@ import {Register} from './Pages/Register/index'
 import {News} from './Pages/News/index'
 import {Contact} from './Pages/Contact/index'
 import {Rule} from './Pages/Info/rule'
+import {Upload} from './Pages/Member/upload'
 import {
   BrowserRouter as Router,
   Switch,
@@ -70,13 +71,14 @@ function App() {
       const accessToken = storage.getAccessToken();
       if (accessToken) {
         // Set the token globally
+        console.log("with accessToken")
         request.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
         // Validate token
         try {
           const user = await fetchUser();
           authDispatch({
             type: "RESTORE",
-            user: user,
+            user: user.name,
             accessToken: accessToken,
           });
         } catch (error) {
@@ -99,7 +101,7 @@ function App() {
     <Router path="/">
       <Switch>
         <Route exact path="/">
-          <IndexHeader/>
+          <Header type="index"/>
           <Home/>
         </Route>
         <Route exact path="/login">
@@ -122,6 +124,15 @@ function App() {
         <Route exact path="/contact">
           <Header/>
           <Contact/>
+        </Route>
+        <Route path="/member">
+          <Route exact path="/member/upload">
+          <Header/>
+          {authState.user ? (
+              <Upload/>) : <Login />}
+
+            
+          </Route>
         </Route>
       </Switch>
       <Footer/>

@@ -1,8 +1,8 @@
 import axios from "axios";
 // import {} from "../appContext";
 // Modify server url here
-const baseURL = "http://localhost:4000";
-// const baseURL = "https://tidy-outlet-310014.df.r.appspot.com";
+// const baseURL = "http://localhost:4000";
+const baseURL = "https://tidy-outlet-310014.df.r.appspot.com";
 const request = axios.create({ baseURL: baseURL });
 
 request.interceptors.response.use(

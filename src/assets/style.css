@@ -99,6 +99,10 @@ p:first-letter {
   border: 0;
 }
 
+.file-preview{
+  height: 70vh;
+}
+
 #contact span{
   display: block !important;
 }

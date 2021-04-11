@@ -29,7 +29,7 @@ function Login(props){
         <main id="content" role="main" className="main">
         <div className="container py-5 py-sm-7">
           <a className="d-flex justify-content-center mb-5" href="/">
-            <img className="z-index-2" src="assets/image/title_pic.jpg" style={{ width: "14rem" }} />
+            <img className="z-index-2" src="../../assets/image/title_pic.jpg" style={{ width: "14rem" }} />
           </a>
   
           <div className="row justify-content-center">
@@ -65,12 +65,7 @@ function Login(props){
                     <label className="input-label">
                       <span className="d-flex justify-content-between align-items-center">
                         密碼
-                        <a
-                          className="input-label-secondary"
-                          href="authentication-reset-password-basic.html"
-                        >
-                          忘記密碼?
-                        </a>
+                        
                       </span>
                     </label>
   
@@ -113,10 +108,7 @@ function Login(props){
                         id="termsCheckbox"
                         name="termsCheckbox"
                       />
-                      <label className="custom-control-label font-size-sm text-muted">
-                        {" "}
-                        記住帳號
-                      </label>
+                     
                     </div>
                   </div>
   

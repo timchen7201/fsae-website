@@ -1,25 +1,41 @@
-import React, {useEffect, useState, useContext} from "react";
+import React, {useEffect, useState,useContext} from "react";
 // import {DropdownMenu, DropdownList, DropdownItem} from
 // "../component/Dropdown";
 import{ Nav,Navbar,NavDropdown,Col,Button} from 'react-bootstrap'
+import AnchorLink from "react-anchor-link-smooth-scroll";
 import { AuthContext } from "../../appContext";
 
 
-const Header = () => {
+const Header = (props) => {
     const { authState, authDispatch } = useContext(AuthContext);
-    const [show, setShow] = useState(false);
+    const [index,setIndex] = useState(false)
+    const [infoShow, setInfoShow] = useState(false);
+    const [memberShow,setMemberShow] = useState(false);
+    useEffect(()=>{
+        console.log(props.type)
+        if(props.type==="index") {
+            setIndex(true)
+        }
+    },[])
     const showDropdown = (e)=>{
-        setShow(!show);
+        if(e.target.id==='info'){
+            setInfoShow(!infoShow);
+        }
+        else if(e.target.id==='member'){
+            setMemberShow(!memberShow)
+        }
     }
     const hideDropdown = e => {
-        setShow(false);
+        setInfoShow(false);
+        setMemberShow(false);
     }
+    
     return ( <> 
         <div style={{'height':'72px','background-color':'#fff'}}>
-        {
+         {
                authState.user?(
                <div className="float-right mt-3 mr-3 pr-3">
-                   <span>{authState.user.name}</span>
+                   <span>{authState.user}</span>
                    <Button 
                     variant="secondary" 
                     className="ml-3"
@@ -40,6 +56,7 @@ const Header = () => {
                 </Button>
                </a>)
          }
+          
         </div>
         < Navbar collapseOnSelect expand = "lg" bg = "" variant = "dark" className="navbar"> 
             {/* <Navbar.Brand href="#home" className="ml-5">React-Bootstrap</Navbar.Brand>  */}
@@ -62,10 +79,18 @@ const Header = () => {
                         <NavDropdown.Divider/>
                         <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
                     </NavDropdown> */}
-                <Nav.Link href="/#about" className="nav-link">About</Nav.Link>
+                {
+                    index?(
+                    <AnchorLink href="#about">
+                        <Nav.Link href="" className="nav-link">About</Nav.Link>
+                    </AnchorLink>)
+                    :(<Nav.Link href="/#about" className="nav-link">About</Nav.Link>)
+                }
                 
-                <NavDropdown title={<a><sapn className="white-text">Info</sapn></a>} id="collasible-nav-dropdown"
-                    show={show}
+                
+                <NavDropdown title={<a><sapn className="white-text">Info</sapn></a>} 
+                    id="info"
+                    show={infoShow}
                     onMouseEnter={showDropdown} 
                     onMouseLeave={hideDropdown}
                     >
@@ -78,7 +103,21 @@ const Header = () => {
                 <Nav.Link href="/news" className="nav-link">Latest news</Nav.Link>
                 <Nav.Link href="/register" className="nav-link">Register</Nav.Link>
                 <Nav.Link href="/contact" className="nav-link">Contact us</Nav.Link>
-
+                {
+                    authState.user?
+                    (
+                        <NavDropdown 
+                        title={<a><sapn className="white-text">會員服務</sapn></a>} 
+                        id="member"
+                        show={memberShow}
+                        onMouseEnter={showDropdown} 
+                        onMouseLeave={hideDropdown}
+                        >
+                        <NavDropdown.Item href="/member/upload">上傳資料</NavDropdown.Item>
+                        
+                    </NavDropdown>
+                    ):(null)
+                }
             </Nav>
         
         </Navbar.Collapse> 

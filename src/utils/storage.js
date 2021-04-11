@@ -8,6 +8,7 @@ const storage = {
     },
    
     clear: () => {
+        console.log('clean')
       localStorage.clear();
     },
 };

@@ -3,7 +3,7 @@ import request from "../utils/request";
 const fetchUser = async () => {
   try {
     const { data } = await request.get(`/users/info`);
-    return 'data';
+    return data;
   } catch (err) {
     return Promise.reject(err);
   }
