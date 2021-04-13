@@ -14,9 +14,7 @@ function Login(props){
           });
           authDispatch({
             type: "LOGIN",
-            user: {
-              name: username,
-            },
+            user: username,
             accessToken: access_token,
           });
           console.log(access_token);
