@@ -9,7 +9,8 @@ const Files=(props)=>{
 
     return(
         <div className="container">
-            {files.map(file=>{
+            {
+            files.length===0?(<div className="text-center"><h2>目前無資料</h2></div>):(files.map(file=>{
                 return(
                <>
                 <h2>{file.team_name}</h2>
@@ -24,7 +25,8 @@ const Files=(props)=>{
                </>
                 )
                 
-            })}
+            }))
+            }
         </div>
     )
 }

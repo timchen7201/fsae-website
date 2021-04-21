@@ -66,7 +66,7 @@ function Upload(){
             alert('請選擇檔案')
             return
         }
-		if(typeof(PDFfile)!==null&&PDFfile!==null){
+		if(typeof(PDFfile)!==null&&PDFfile.length!==0){
             const uniq=PDFfile.filter(function(item, pos, self) {
                 return self.indexOf(item) == pos;
             })
@@ -86,7 +86,15 @@ function Upload(){
         }
         if(typeof(Videofile)!==null&&Videofile!==null){
             videoData.append('video',Videofile);
-            uploadData(videoData,'video');
+            uploadData(videoData,'video').then((response)=>{  
+                var message=''
+                response.map((file_msg)=>{
+                    message=message.concat(file_msg['filename']+':'+file_msg['msg']+'\n')
+                })          
+                alert(message)
+                // setUploadPage(false)
+                window.location.reload();
+            });
         }
         
     }  

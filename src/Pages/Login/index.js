@@ -67,7 +67,7 @@ function Login(props){
                       <div className="checkbox">
                       <label><input name="member" type="checkbox" checked={memberCheck} onChange={()=>{setMemberCheck(!memberCheck);setAdminCheck(!adminCheck);}}/> Member&nbsp;&nbsp;&nbsp;</label>
                         
-                      <label><input name="admin" type="checkbox" checked={adminCheck} onChange={()=>{setAdminCheck(!adminCheck);setMemberCheck(!memberCheck)}}/> Administration</label>
+                      <label><input name="admin" type="checkbox" checked={adminCheck} onChange={()=>{setAdminCheck(!adminCheck);setMemberCheck(!memberCheck)}}/> Administrator</label>
                       </div>
                      
 
@@ -146,7 +146,7 @@ function Login(props){
                   ) : (
                     <div className="text-center">
                       <sapn id="name" class="text-danger">
-                        帳號密碼有誤
+                      Incorrect account name or password 
                       </sapn>
                     </div>
                   )}
@@ -154,7 +154,7 @@ function Login(props){
                     onClick={defaultSignIn}
                     className="btn btn-block btn-primary"
                   >
-                    登入
+                    Login
                   </button>
                 </div>
               </div>
