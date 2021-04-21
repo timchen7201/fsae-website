@@ -1,12 +1,19 @@
 import React ,{useState,useContext} from "react";
-import {AuthContext} from "../../appContext"
+import {AuthContext,AdminAuthContext} from "../../appContext"
 import {emailSignIn} from '../../api/user'
+import {normalSignIn} from '../../api/admin'
+
+import {InputGroup,FormControl} from "react-bootstrap"
 function Login(props){
     const { authDispatch } = useContext(AuthContext);
+    const { AdminDispatch } = useContext(AdminAuthContext);
     const [username, setUsername] = useState(null);
     const [password, setPassword] = useState(null);
     const [loggingStatus, setLoggingStatus] = useState(true);
+    const [memberCheck,setMemberCheck] = useState(true)
+    const [adminCheck,setAdminCheck] = useState(false)
     const defaultSignIn = async () => {
+      if(memberCheck===true&&adminCheck===false){
         try {
           const { access_token } = await emailSignIn({
             username,
@@ -22,12 +29,32 @@ function Login(props){
           setLoggingStatus(false);
           console.error(error);
         }
+      }
+      else if(memberCheck===false&&adminCheck===true){
+        try {
+          const { access_token } = await normalSignIn({
+            username,
+            password,
+          });
+          AdminDispatch({
+            type: "LOGIN",
+            user: username,
+            AdminToken: access_token,
+          });
+          console.log("admin token",access_token);
+        } catch (error) {
+          setLoggingStatus(false);
+          console.error(error);
+        }
+      }
+      
+
       };
     return(
         <main id="content" role="main" className="main">
         <div className="container py-5 py-sm-7">
           <a className="d-flex justify-content-center mb-5" href="/">
-            <img className="z-index-2" src="../../assets/image/title_pic.jpg" style={{ width: "14rem" }} />
+            <img className="z-index-2" src="../../assets/image/logo.jpg" style={{ width: "14rem" }} />
           </a>
   
           <div className="row justify-content-center">
@@ -35,14 +62,20 @@ function Login(props){
               <div className="card card-lg mb-5">
                 <div className="card-body">
                   <div className="text-center">
-                    <div className="mb-5">
-                      <h1 className="h3">會員登入</h1>
-                      
+                    <div className="mb-2">
+                      <h1 className="h3">Please select your role</h1>
+                      <div className="checkbox">
+                      <label><input name="member" type="checkbox" checked={memberCheck} onChange={()=>{setMemberCheck(!memberCheck);setAdminCheck(!adminCheck);}}/> Member&nbsp;&nbsp;&nbsp;</label>
+                        
+                      <label><input name="admin" type="checkbox" checked={adminCheck} onChange={()=>{setAdminCheck(!adminCheck);setMemberCheck(!memberCheck)}}/> Administration</label>
+                      </div>
+                     
+
                     </div>
   
                   </div>
                   <div className="js-form-message form-group">
-                    <label className="input-label">電子信箱</label>
+                    <label className="input-label">Account Name</label>
   
                     <input
                       default-value={username}
@@ -53,7 +86,6 @@ function Login(props){
                       className="form-control"
                       name="email"
                       id="signinSrEmail"
-                      placeholder="email@address.com"
                       aria-label="email@address.com"
                       required
                       data-msg="Please enter a valid email address."
@@ -62,7 +94,7 @@ function Login(props){
                   <div className="js-form-message form-group">
                     <label className="input-label">
                       <span className="d-flex justify-content-between align-items-center">
-                        密碼
+                        Password
                         
                       </span>
                     </label>
@@ -77,7 +109,6 @@ function Login(props){
                         className="js-toggle-password form-control"
                         name="password"
                         id="signupSrPassword"
-                        placeholder="8+ characters required"
                         aria-label="8+ characters required"
                         required
                         data-msg="Your password is invalid. Please try again."

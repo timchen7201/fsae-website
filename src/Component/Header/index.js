@@ -3,14 +3,19 @@ import React, {useEffect, useState,useContext} from "react";
 // "../component/Dropdown";
 import{ Nav,Navbar,NavDropdown,Col,Button} from 'react-bootstrap'
 import AnchorLink from "react-anchor-link-smooth-scroll";
-import { AuthContext } from "../../appContext";
+import { AuthContext,AdminAuthContext } from "../../appContext";
 
 
 const Header = (props) => {
     const { authState, authDispatch } = useContext(AuthContext);
+    const { adminAuth,AdminDispatch } = useContext(AdminAuthContext);
+
     const [index,setIndex] = useState(false)
     const [infoShow, setInfoShow] = useState(false);
     const [memberShow,setMemberShow] = useState(false);
+    const [adminShow,setAdminShow] = useState(false);
+
+    const [registerShow,setRegisterShow] = useState(false)
     useEffect(()=>{
         console.log(props.type)
         if(props.type==="index") {
@@ -24,6 +29,12 @@ const Header = (props) => {
         else if(e.target.id==='member'){
             setMemberShow(!memberShow)
         }
+        else if(e.target.id==='register'){
+            setRegisterShow(!registerShow)
+        }
+        else if(e.target.id==='admin'){
+            setAdminShow(!adminShow)
+        }
     }
     const hideDropdown = e => {
         setInfoShow(false);
@@ -31,7 +42,7 @@ const Header = (props) => {
     }
     
     return ( <> 
-        <div style={{'height':'72px','background-color':'#fff'}}>
+        {/* <div style={{'height':'72px','background-color':'#fff'}}>
          {
                authState.user?(
                <div className="float-right mt-3 mr-3 pr-3">
@@ -56,17 +67,25 @@ const Header = (props) => {
                 </Button>
                </a>)
          }
-          
-        </div>
+        </div> */}
+        <div >
+        {/* <div className="header">
+
+        </div> */}
+        
         < Navbar collapseOnSelect expand = "lg" bg = "" variant = "dark" className="navbar"> 
+            <a href="/"><img src="../assets/image/logo2.png"></img></a>
+            <span>臺灣盃學生方程式聯賽</span>
             {/* <Navbar.Brand href="#home" className="ml-5">React-Bootstrap</Navbar.Brand>  */}
             <Col className="text-right">
-                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                <Navbar.Toggle aria-controls="responsive-navbar-nav">
+                    {/* <span className="custom-navbar-toggler-icon"></span> */}
+                </Navbar.Toggle>
             </Col>            
-            <Navbar.Collapse id="basic-navbar-nav"  className="mr-3">
-            <Nav className="mr-auto">
-            </Nav>
+            <Navbar.Collapse id="basic-navbar-nav"  className="">
             <Nav className="mx-auto">
+            </Nav>
+            <Nav className="mr-auto">
                 <Nav.Link href="/" className="nav-link">Home</Nav.Link>
                     {/* <NavDropdown title={<a className="white-text">Home</a>} id="collasible-nav-dropdown"
                     show={show}
@@ -88,7 +107,7 @@ const Header = (props) => {
                 }
                 
                 
-                <NavDropdown title={<a><sapn className="white-text">Info</sapn></a>} 
+                <NavDropdown title={<a><sapn className="">Info</sapn></a>} 
                     id="info"
                     show={infoShow}
                     onMouseEnter={showDropdown} 
@@ -96,36 +115,72 @@ const Header = (props) => {
                     >
                     <NavDropdown.Item href="/info/rule">比賽規範</NavDropdown.Item>
                     <NavDropdown.Item href="#action/3.1">活動花絮</NavDropdown.Item>
-                    <NavDropdown.Item href="#action/3.1">行事曆</NavDropdown.Item>
+                    <NavDropdown.Item href="/info/sponser">贊助回饋</NavDropdown.Item>
 
                 </NavDropdown>
 
                 <Nav.Link href="/news" className="nav-link">Latest news</Nav.Link>
                 <Nav.Link href="/register" className="nav-link">Register</Nav.Link>
+                {/* <NavDropdown title={<a><sapn className="white-text">Register</sapn></a>} 
+                    id="register"
+                    show={registerShow}
+                    onMouseEnter={showDropdown} 
+                    onMouseLeave={hideDropdown}
+                    >
+                    <NavDropdown.Item href="/register/files">報名檔案下載</NavDropdown.Item>
+                  
+                </NavDropdown> */}
+
                 <Nav.Link href="/contact" className="nav-link">Contact us</Nav.Link>
+
                 {
                     authState.user?
                     (
                         <NavDropdown 
-                        title={<a><sapn className="white-text">會員服務</sapn></a>} 
+                        title={<a><sapn className="">會員服務</sapn></a>} 
                         id="member"
                         show={memberShow}
                         onMouseEnter={showDropdown} 
                         onMouseLeave={hideDropdown}
                         >
                         <NavDropdown.Item href="/member/upload">上傳資料</NavDropdown.Item>
-                        
+                        <NavDropdown.Item onClick={() =>
+                        authDispatch({
+                          type: "LOGOUT",
+                        })}>登出</NavDropdown.Item>
+
                     </NavDropdown>
-                    ):(null)
+                    ):(
+                    
+                        adminAuth.user?(
+                            <NavDropdown 
+                            title={<a><sapn className="">Admin</sapn></a>} 
+                            id="admin"
+                            show={adminShow}
+                            onMouseEnter={showDropdown} 
+                            onMouseLeave={hideDropdown}
+                            >
+                           
+                            <NavDropdown.Item href="/admin/files">List all files</NavDropdown.Item>
+                            <NavDropdown.Item onClick={() =>
+                            AdminDispatch({
+                              type: "LOGOUT",
+                            })}>Logout</NavDropdown.Item>
+                            </NavDropdown>
+
+                        ):(<Nav.Link href="/login" className="nav-link">Login</Nav.Link>)
+            
+                    
+                    )
                 }
             </Nav>
         
         </Navbar.Collapse> 
         </Navbar>
-        
-        <div className="absolute-logo">
-            <img src="../assets/image/title_pic2.png" ></img>
         </div>
+        {/* <div className="absolute-logo">
+            <a href="/"><img src="../assets/image/logo.jpg" ></img></a>
+        </div> */}
        </>
        )
 }

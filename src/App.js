@@ -2,19 +2,20 @@ import React,{useReducer,useEffect,useState} from "react"
 import "bootstrap/dist/css/bootstrap.min.css";
 import {Header} from "./Component/Header/index"
 // import {IndexHeader} from "./Component/Header/header"
-import { AuthContext } from "./appContext";
+import { AuthContext, AdminAuthContext } from "./appContext";
 import request from "./utils/request";
 import storage from "./utils/storage";
 import { fetchUser } from "./api/user";
-
+import {fetchAdmin } from './api/admin'
 import {Home} from './Pages/Home/index'
-import {About} from './Pages/About/index'
 import {Footer} from './Component/Footer/index'
 import {Register} from './Pages/Register/index'
 import {News} from './Pages/News/index'
 import {Contact} from './Pages/Contact/index'
 import {Rule} from './Pages/Info/rule'
 import {Upload} from './Pages/Member/upload'
+import {Sponser} from './Pages/Info/sponser'
+import {Files} from './Pages/Admin/files'
 import {
   BrowserRouter as Router,
   Switch,
@@ -64,11 +65,51 @@ function App() {
       accessToken: null,
     }
   );
+  // Admin Auth
+  const [adminAuth,AdminDispatch]=useReducer(
+    (prevState, action) => {
+      switch (action.type) {
+        case "RESTORE":
+          request.defaults.headers.common.Authorization = `Bearer ${action.AdminToken}`;
+          storage.setAdminToken(action.AdminToken);
+          return {
+            ...prevState,
+            user: action.user,
+            AdminToken: action.admin_token,
+          };
+        case "LOGIN":
+          request.defaults.headers.common.Authorization = `Bearer ${action.AdminToken}`;
+          storage.setAdminToken(action.AdminToken);
+          return {
+            ...prevState,
+            user: action.user,
+            AdminToken: action.admin_token,
+          };
+        case "LOGOUT":
+          request.defaults.headers.common.Authorization = ``;
+          storage.clear();
+          return {
+            ...prevState,
+            user: null,
+            AdminToken: null,
+          };
+        default:
+          return {
+            ...prevState,
+          };
+      }
+    },
+    {
+      user: null,
+      accessToken: null,
+    }
+  );
   // Setup
   useEffect(() => {
     const bootstrapAsync = async () => {
       // Auth
       const accessToken = storage.getAccessToken();
+      const admin_token = storage.getAdminToken();
       if (accessToken) {
         // Set the token globally
         console.log("with accessToken")
@@ -76,13 +117,27 @@ function App() {
         // Validate token
         try {
           const user = await fetchUser();
+          console.log("user----",user)
           authDispatch({
             type: "RESTORE",
-            user: user.name,
+            user: user.team_name,
             accessToken: accessToken,
           });
         } catch (error) {
           console.error("Invalid token");
+        }
+      }else if(admin_token){
+        request.defaults.headers.common.Authorization = `Bearer ${admin_token}`;
+        try{
+          const admin = await fetchAdmin();
+          console.log("admin---",admin)
+          AdminDispatch({
+            type: "RESTORE",
+            user: admin.name,
+            AdminToken: admin_token,
+          })
+        }catch (error){
+          console.error("Invalid token")
         }
       }
       
@@ -98,6 +153,12 @@ function App() {
       authDispatch,
     }}
   >
+    <AdminAuthContext.Provider
+      value={{
+        adminAuth,
+        AdminDispatch,
+      }}
+    >
     <Router path="/">
       <Switch>
         <Route exact path="/">
@@ -105,12 +166,25 @@ function App() {
           <Home/>
         </Route>
         <Route exact path="/login">
-          {authState.user ? <Redirect to="/" /> : <Login />}
+          {authState.user || adminAuth.user? <Redirect to="/" /> : <Login />}
+          {/* {adminAuth.user ? <Redirect to="/" /> : <Login />} */}
+        </Route>
+       
+        <Route path="/admin">
+          <Route exact path="/admin/files">
+            <Header/>
+            {adminAuth.user?(<Files/>):(<Home/>)}
+            {/* 怪怪的 */}
+          </Route>
         </Route>
         <Route path="/info">
           <Route exact path="/info/rule">
           <Header/>
             <Rule/>
+          </Route>
+          <Route exact path="/info/sponser">
+          <Header/>
+            <Sponser/>
           </Route>
         </Route>
         <Route exact path="/news">
@@ -129,14 +203,17 @@ function App() {
           <Route exact path="/member/upload">
           <Header/>
           {authState.user ? (
-              <Upload/>) : <Login />}
+              <Upload/>) :<Login/>
+          }
 
-            
+          {adminAuth.user?(<Redirect to="/"/>):(null)}
+
           </Route>
         </Route>
       </Switch>
       <Footer/>
     </Router>
+    </AdminAuthContext.Provider>
   </AuthContext.Provider>
   );
 }
