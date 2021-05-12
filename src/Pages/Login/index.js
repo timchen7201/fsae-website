@@ -15,13 +15,14 @@ function Login(props){
     const defaultSignIn = async () => {
       if(memberCheck===true&&adminCheck===false){
         try {
-          const { access_token } = await emailSignIn({
+          const { access_token,car_num } = await emailSignIn({
             username,
             password,
           });
           authDispatch({
             type: "LOGIN",
             user: username,
+            car_num: car_num,
             accessToken: access_token,
           });
           console.log(access_token);

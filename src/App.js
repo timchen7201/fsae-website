@@ -16,6 +16,7 @@ import {Rule} from './Pages/Info/rule'
 import {Upload} from './Pages/Member/upload'
 import {Sponser} from './Pages/Info/sponser'
 import {Files} from './Pages/Admin/files'
+import {FAQ} from './Pages/FAQ'
 import {
   BrowserRouter as Router,
   Switch,
@@ -36,6 +37,7 @@ function App() {
           return {
             ...prevState,
             user: action.user,
+            car_num: action.car_num,
             accessToken: action.accessToken,
           };
         case "LOGIN":
@@ -44,6 +46,7 @@ function App() {
           return {
             ...prevState,
             user: action.user,
+            car_num: action.car_num,
             accessToken: action.accessToken,
           };
         case "LOGOUT":
@@ -121,6 +124,7 @@ function App() {
           authDispatch({
             type: "RESTORE",
             user: user.team_name,
+            car_num: user.car_num,
             accessToken: accessToken,
           });
         } catch (error) {
@@ -164,10 +168,14 @@ function App() {
         <Route exact path="/">
           <Header type="index"/>
           <Home/>
+          <Footer/>
+
         </Route>
         <Route exact path="/login">
           {authState.user || adminAuth.user? <Redirect to="/" /> : <Login />}
           {/* {adminAuth.user ? <Redirect to="/" /> : <Login />} */}
+          <Footer/>
+
         </Route>
        
         <Route path="/admin">
@@ -175,43 +183,55 @@ function App() {
             <Header/>
             {adminAuth.user?(<Files/>):(<Home/>)}
             {/* 怪怪的 */}
+            <Footer/>
+
           </Route>
         </Route>
         <Route path="/info">
           <Route exact path="/info/rule">
           <Header/>
             <Rule/>
+            <Footer/>
+
           </Route>
           <Route exact path="/info/sponser">
           <Header/>
             <Sponser/>
+            <Footer/>
           </Route>
         </Route>
         <Route exact path="/news">
           <Header/>
           <News/>
+          <Footer/>
+
         </Route>
         <Route exact path="/register">
         <Header/>
           <Register/>
+          <Footer/>
         </Route>
         <Route exact path="/contact">
           <Header/>
           <Contact/>
+          <Footer/>
         </Route>
         <Route path="/member">
           <Route exact path="/member/upload">
-          <Header/>
-          {authState.user ? (
-              <Upload/>) :<Login/>
-          }
-
-          {adminAuth.user?(<Redirect to="/"/>):(null)}
-
+            <Header/>
+            {authState.user ? (
+                <Upload/>) :<Login/>
+            }
+            {adminAuth.user?(<Redirect to="/"/>):(null)}
+            <Footer/>
+            </Route>
+          <Route exact path="/member/qa">
+            <Header/>
+            <FAQ/>
+            {/* <Footer/> */}
           </Route>
         </Route>
       </Switch>
-      <Footer/>
     </Router>
     </AdminAuthContext.Provider>
   </AuthContext.Provider>

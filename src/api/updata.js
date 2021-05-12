@@ -9,7 +9,7 @@ async function uploadData(body,type) {
     }
 }
 
-async function askAlreadyUpload(){
+async function askAlreadyUpload(admin_token){
   try{
     const {data} = await request.get(`/upload/already`)
     return data

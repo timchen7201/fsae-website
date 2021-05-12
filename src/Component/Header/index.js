@@ -137,13 +137,15 @@ const Header = (props) => {
                     authState.user?
                     (
                         <NavDropdown 
-                        title={<a><sapn className="">會員服務</sapn></a>} 
+                        title={<a><sapn className="">{authState.car_num}</sapn></a>} 
                         id="member"
                         show={memberShow}
                         onMouseEnter={showDropdown} 
                         onMouseLeave={hideDropdown}
                         >
                         <NavDropdown.Item href="/member/upload">上傳資料</NavDropdown.Item>
+                        <NavDropdown.Item href="/member/qa">Q&A</NavDropdown.Item>
+
                         <NavDropdown.Item onClick={() =>
                         authDispatch({
                           type: "LOGOUT",
@@ -162,6 +164,7 @@ const Header = (props) => {
                             >
                            
                             <NavDropdown.Item href="/admin/files">List all files</NavDropdown.Item>
+                            <NavDropdown.Item href="/member/qa">Q&A</NavDropdown.Item>
                             <NavDropdown.Item onClick={() =>
                             AdminDispatch({
                               type: "LOGOUT",

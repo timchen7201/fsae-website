@@ -9,6 +9,7 @@ import {uploadData,askAlreadyUpload} from '../../api/updata'
 import "filepond/dist/filepond.min.css";
 // Import the plugin code
 import { Button,ButtonGroup } from 'react-bootstrap';
+import storage from '../../utils/storage';
 // var FormData = require('form-data');
 
 
@@ -67,6 +68,7 @@ function Upload(){
             return
         }
 		if(typeof(PDFfile)!==null&&PDFfile.length!==0){
+            setPassion(true)
             const uniq=PDFfile.filter(function(item, pos, self) {
                 return self.indexOf(item) == pos;
             })
@@ -85,6 +87,7 @@ function Upload(){
             });
         }
         if(typeof(Videofile)!==null&&Videofile!==null){
+            setPassion(true)
             videoData.append('video',Videofile);
             uploadData(videoData,'video').then((response)=>{  
                 var message=''
@@ -101,7 +104,6 @@ function Upload(){
     const alreadyUpload = () => {
         askAlreadyUpload().then((result)=>{
             if(result.length!==0){
-                console.log('------------',result)
                 setAlreadyfiles([...result])
             }
         })
@@ -121,16 +123,18 @@ function Upload(){
                     <>
                 <h2>資料上傳區</h2>
                     <h3>書面資料</h3>
+                    <img src="../../assets/image/upload_info.png"></img>
+
                     <p>繳交檔名請符合 <i>車號_學校名稱+車種(ICVor EV)_2021文件名稱如下</i> 的格式，您需繳交的文件如下：</p>
                        <ul>
-                           <li>SES</li>
+                           <li>SES <i className="red-text">(2021-06-25 12:00:00)</i></li>
                            <li>ESO_ESA</li>
-                           <li>ESF_FMEA</li>
-                           <li>SPD</li>
-                           <li>Cost_Report</li>
-                           <li>Cost_Addendum</li>
-                           <li>Design_Report</li>
-                           <li>Shakedown_Certificate</li>
+                           <li>ESF_FMEA<i className="red-text">(2021-07-26 12:00:00)</i></li>
+                           <li>SPD <i className="red-text">(2021-07-04 12:00:00)</i></li>
+                           <li>Cost_Report  <i className="red-text">(2021-07-18 12:00:00)</i></li>
+                           <li>Cost_Addendum  <i className="red-text">(2021-08-20 12:00:00)</i></li>
+                           <li>Design_Report  <i className="red-text">(2021-07-22 12:00:00)</i></li>
+                           <li>Shakedown_Certificate  <i className="red-text">(2021-08-14 12:00:00)</i></li>
                        </ul>
                     <Dropzone
                        // getUploadParams={getUploadParams}
@@ -138,7 +142,7 @@ function Upload(){
                        // onSubmit={handleSubmit}
                        inputContent={<span>點擊上傳～</span>}
                        submitButtonContent={<span>上傳</span>}
-                       maxFiles={8}
+                       maxFiles={1}
                        inputWithFilesContent={<span>增加檔案</span>}
                        accept='application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
                    />  
@@ -147,7 +151,7 @@ function Upload(){
                        // getUploadParams={getUploadParams}
                        onChangeStatus={handleVideoChange}
                        // onSubmit={handleSubmit}
-                       maxSize={MAXSIZE}
+                    //    maxSize={MAXSIZE}
                        inputContent={<span>點擊上傳～</span>}
                        submitButtonContent={<span>上傳</span>}
                        maxFiles={1}

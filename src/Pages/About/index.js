@@ -5,7 +5,7 @@ const About = () => {
         <div className="container">
 
             <div className="row mt-5">
-                <span style={{'fontFamily':'bold','fontSize':'30px'}}>我們用一場比賽，把世界拉近台灣</span>
+                <span style={{'fontFamily':'bold','fontSize':'30px'}}>我們用一場比賽，把世界拉進台灣</span>
                 <br/>
                 <p>&nbsp;首先，我們想把FSAE帶進台灣的原因，是因為我們相信FSAE是一場好的比賽，它能補足學校學不到的東西。
                     FSAE是場存在超過四十年的比賽，每年有500多所學校參加，而我想能夠讓這麼多人願意投入其中，是FSAE的價值不只受益於人才更受益於國家。

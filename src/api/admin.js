@@ -20,9 +20,13 @@ const normalSignIn = async ({ username, password })=>{
     return Promise.reject(err);
   }
 }
-const listAllFiles = async()=>{
+const listAllFiles = async(admin_token)=>{
   try{
-    const {data} = await request.get(`/admin/allFiles`)
+    const {data} = await request.post(`/admin/allFiles`,{
+      headers: {
+        Authorization: `Bearer ${admin_token}`,
+      },
+    })
     console.log('jjjo',data)
     return data
   }catch(err){
