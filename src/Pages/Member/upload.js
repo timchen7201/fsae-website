@@ -5,8 +5,6 @@ import 'react-dropzone-uploader/dist/styles.css'
 
 import {uploadData,askAlreadyUpload} from '../../api/updata'
 
-// Import FilePond styles
-import "filepond/dist/filepond.min.css";
 // Import the plugin code
 import { Button,ButtonGroup } from 'react-bootstrap';
 import storage from '../../utils/storage';

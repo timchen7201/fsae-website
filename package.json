@@ -15,6 +15,7 @@
     "react-anchor-link-smooth-scroll": "^1.0.12",
     "react-bootstrap": "^1.4.0",
     "react-bootstrap-dropdown-menu": "^1.1.23",
+    "react-collapsible": "^2.8.3",
     "react-dom": "^17.0.2",
     "react-dropdown": "^1.9.2",
     "react-dropzone-uploader": "^2.11.0",
