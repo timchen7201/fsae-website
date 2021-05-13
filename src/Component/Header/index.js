@@ -75,7 +75,8 @@ const Header = (props) => {
         
         < Navbar collapseOnSelect expand = "lg" bg = "" variant = "dark" className="navbar"> 
             <a href="/"><img src="../assets/image/logo2.png"></img></a>
-            <span>臺灣盃學生方程式聯賽</span>
+            <img src="../assets/image/title.png"></img>
+            {/* <span>臺灣盃學生方程式聯賽</span> */}
             {/* <Navbar.Brand href="#home" className="ml-5">React-Bootstrap</Navbar.Brand>  */}
             <Col className="text-right">
                 <Navbar.Toggle aria-controls="responsive-navbar-nav">
